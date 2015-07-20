@@ -1,48 +1,58 @@
 <!DOCTYLE html>
 <html>
 <head>
-	<title>Lunchanator - Decision Making Made Easy</title>
+    <title>Lunchanator - Decision Making Made Easy</title>
 </head>
 
 <body>
-	<div id="chosen">click the button</div>
+    <div id="chosen">click the button</div>
 
-	<button id="roll">Choose for Me!</button>
+    <button id="roll">Choose for Me!</button>
 
-	<script>
+    <script>
+        (function() {
+            restaurantList = localStorage.getItem('restaurants').split(',');
 
-		var chosenEl = document.getElementById('chosen');
-		var rollEl = document.getElementById('roll');
-		var tehList = [
-			'MOD Pizza',
-			'Jersey Mike\'s Subs',
-			'Torchy\'s Tacos',
-			'Smashburger',
-			'Which Wich',
-			'Chipotle Mexican Grill',
-			'Wacky Mongolian Grill & Bbq',
-			'Mo\'s Irish Pub',
-			'Another Broken Egg Cafe',
-			'Carl\'s Jr.',
-			'Santa Fe Flats',
-			'Chick-fil-A',
-			'Whataburger',
-			'Red Robin',
-			'Taste of China',
-			'Free Birds',
-			'Santa Fe Flats',
-			'Juanita\'s Mexican',
-			'Mango Tree Thai Bistro',
-		];
+            if(restaurantList !== null) {
 
-		function choseitnow() {
-			var x = Math.floor((Math.random() * tehList.length));
-			chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + tehList[x] + '">' + tehList[x] + '</a>';
-		}
-		
-		rollEl.onclick = choseitnow;
+                var chosenEl = document.getElementById('chosen');
+                var rollEl = document.getElementById('roll');
 
-	</script>
+                function choseitnow() {
+                    var x = Math.floor((Math.random() * restaurantList.length));
+                    chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+                }
+
+                rollEl.onclick = choseitnow;
+            } else {
+                load = confirm('You lack restaurant data, load default?');
+                if(load) {
+                    var restaurantDefault = [
+                        'MOD Pizza',
+                        'Jersey Mike\'s Subs',
+                        'Torchy\'s Tacos',
+                        'Smashburger',
+                        'Which Wich',
+                        'Chipotle Mexican Grill',
+                        'Wacky Mongolian Grill & Bbq',
+                        'Mo\'s Irish Pub',
+                        'Another Broken Egg Cafe',
+                        'Carl\'s Jr.',
+                        'Santa Fe Flats',
+                        'Chick-fil-A',
+                        'Whataburger',
+                        'Red Robin',
+                        'Taste of China',
+                        'Free Birds',
+                        'Santa Fe Flats',
+                        'Juanita\'s Mexican',
+                        'Mango Tree Thai Bistro',
+                    ];
+                    localStorage.setItem('restaurants', restaurantDefault.toString());
+                }
+            }
+        })();
+    </script>
 
 </body>
 </html>
