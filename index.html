@@ -12,19 +12,15 @@
     <script>
         (function() {
             var restaurantList = localStorage.getItem('restaurants');
+            var chosenEl = document.getElementById('chosen');
+            var rollEl = document.getElementById('roll');
 
             if(restaurantList !== null) {
-                
                 restaurantList = restaurantList.split(',');
-
-                var chosenEl = document.getElementById('chosen');
-                var rollEl = document.getElementById('roll');
-
                 function choseitnow() {
                     var x = Math.floor((Math.random() * restaurantList.length));
                     chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
                 }
-
                 rollEl.onclick = choseitnow;
             } else {
                 load = confirm('You lack restaurant data, load default?');
@@ -49,8 +45,15 @@
                         'Santa Fe Flats',
                         'Juanita\'s Mexican',
                         'Mango Tree Thai Bistro',
+                        'Cains'
                     ];
                     localStorage.setItem('restaurants', restaurantDefault.toString());
+                    restaurantList = localStorage.getItem('restaurants');
+                    function choseitnow() {
+                        var x = Math.floor((Math.random() * restaurantList.length));
+                        chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+                    }
+                    rollEl.onclick = choseitnow;
                 }
             }
         })();
