@@ -49,6 +49,7 @@
                     ];
                     localStorage.setItem('restaurants', restaurantDefault.toString());
                     restaurantList = localStorage.getItem('restaurants');
+                    restaurantList = restaurantList.split(',');
                     function choseitnow() {
                         var x = Math.floor((Math.random() * restaurantList.length));
                         chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
