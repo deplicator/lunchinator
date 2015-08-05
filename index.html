@@ -11,9 +11,11 @@
 
     <script>
         (function() {
-            restaurantList = localStorage.getItem('restaurants').split(',');
+            var restaurantList = '';
 
             if(restaurantList !== null) {
+                
+                restaurantList = localStorage.getItem('restaurants').split(',');
 
                 var chosenEl = document.getElementById('chosen');
                 var rollEl = document.getElementById('roll');
