@@ -1,48 +1,97 @@
 <!DOCTYLE html>
 <html>
 <head>
-	<title>Lunchanator - Decision Making Made Easy</title>
+    <title>Lunchanator - Decision Making Made Easy</title>
+    <style>
+        div, button, form{
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+        }
+    </style>
+
 </head>
 
 <body>
-	<div id="chosen">click the button</div>
+    <div id="chosen">click the button</div>
 
-	<button id="roll">Choose for Me!</button>
+    <button id="roll">Choose for Me!</button>
+	
+	<form>
+		<input type="radio" name="pickList" value="HewlettPackard" checked> Hewlett Packard
+		<br>
+		<input type="radio" name="pickList" value="CollegeStation"> College Station
+		<br>
+		<input type="radio" name="pickList" value="PrairieView"> Prairie View
+	</form>
 
-	<script>
-
-		var chosenEl = document.getElementById('chosen');
-		var rollEl = document.getElementById('roll');
-		var tehList = [
-			'MOD Pizza',
-			'Jersey Mike\'s Subs',
-			'Torchy\'s Tacos',
-			'Smashburger',
-			'Which Wich',
-			'Chipotle Mexican Grill',
-			'Wacky Mongolian Grill & Bbq',
-			'Mo\'s Irish Pub',
-			'Another Broken Egg Cafe',
-			'Carl\'s Jr.',
-			'Santa Fe Flats',
-			'Chick-fil-A',
-			'Whataburger',
-			'Red Robin',
-			'Taste of China',
-			'Free Birds',
-			'Santa Fe Flats',
-			'Juanita\'s Mexican',
-			'Mango Tree Thai Bistro',
-		];
-
-		function choseitnow() {
-			var x = Math.floor((Math.random() * tehList.length));
-			chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + tehList[x] + '">' + tehList[x] + '</a>';
-		}
-		
-		rollEl.onclick = choseitnow;
-
-	</script>
+    <script>
+        (function() {
+			var HewlettPackard = [
+                        'MOD Pizza',
+                        'Jersey Mike\'s Subs',
+                        'Torchy\'s Tacos',
+                        'Smashburger',
+                        'Which Wich',
+                        'Chipotle Mexican Grill',
+                        'Wacky Mongolian Grill & Bbq',
+                        'Mo\'s Irish Pub',
+                        'Another Broken Egg Cafe',
+                        'Carl\'s Jr.',
+                        'Santa Fe Flats',
+                        'Chick-fil-A',
+                        'Whataburger',
+                        'Red Robin',
+                        'Taste of China',
+                        'Free Birds',
+                        'Santa Fe Flats',
+                        'Juanita\'s Mexican',
+                        'Mango Tree Thai Bistro',
+                        'Raising Cane\'s'
+            ];
+			var CollegeStation = [
+                        'FreeBirds',
+						'Fuegos',
+						'Raising Cane\'s',
+						'Laynes',
+						'Grub Burger',
+						'Torchy\'s Tacos',
+						'Sbisa lol no',
+						'Whataburger',
+						'Vy\'s Kitchen'
+            ];
+			var PrairieView = [
+                        'I dunno',
+						'food place'
+            ];
+			
+			var areaSelection = $('input[name="pickList"]:checked').val();
+			//var areaSelection = CollegeStation.toString();
+			localStorage.setItem('restaurants', areaSelection.toString());
+			
+            var restaurantList = localStorage.getItem('restaurants');
+            var chosenEl = document.getElementById('chosen');
+            var rollEl = document.getElementById('roll');
+			
+            if(restaurantList !== null) {
+                restaurantList = restaurantList.split(',');
+                function choseitnow() {
+                    var x = Math.floor((Math.random() * restaurantList.length));
+                    chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+                }
+                rollEl.onclick = choseitnow;
+            } else {
+                    localStorage.setItem('restaurants', restaurantDefault.toString());
+                    restaurantList = localStorage.getItem('restaurants');
+                    restaurantList = restaurantList.split(',');
+                    function choseitnow() {
+                        var x = Math.floor((Math.random() * restaurantList.length));
+                        chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+                    }
+                    rollEl.onclick = choseitnow;
+            }
+        })();
+    </script>
 
 </body>
 </html>
