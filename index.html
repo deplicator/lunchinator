@@ -9,15 +9,16 @@
             margin: 0 auto;
         }
     </style>
-
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+	</script>
 </head>
 
 <body>
-    <div id="chosen">click the button</div>
+    <div id="chosen">Choose a location below! Scientists HATE us! 97% of people don't know where to eat!</div>
 
-    <button id="roll">Choose for Me!</button>
+    <button id="roll">WHERE TO!? CLICK TO FIND OUT!</button>
 	
-	<form>
+	<form id="LocationForm">
 		<input type="radio" name="pickList" value="HewlettPackard" checked> Hewlett Packard
 		<br>
 		<input type="radio" name="pickList" value="CollegeStation"> College Station
@@ -65,22 +66,31 @@
 						'food place'
             ];
 			
-			var areaSelection = $('input[name="pickList"]:checked').val();
-			//var areaSelection = CollegeStation.toString();
-			localStorage.setItem('restaurants', areaSelection.toString());
-			
-            var restaurantList = localStorage.getItem('restaurants');
-            var chosenEl = document.getElementById('chosen');
-            var rollEl = document.getElementById('roll');
-			
-            if(restaurantList !== null) {
-                restaurantList = restaurantList.split(',');
-                function choseitnow() {
-                    var x = Math.floor((Math.random() * restaurantList.length));
-                    chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+		    $('#locationForm input').on('change',function(){
+		        var areaSelection = $('input[name=pickList]:checked').val();
+			    alert($('input[name=pickList]:checked').val());
+				
+				if(areaSelection.toString() == "HewlettPackard"){
+					localStorage.setItem('restaurants', HewlettPackard.toString());
+				}
+                if(areaSelection.toString() == "CollegeStation"){
+                    localStorage.setItem('restaurants', CollegeStation.toString());
                 }
-                rollEl.onclick = choseitnow;
-            } else {
+                if(areaSelection.toString() == "PrairieView"){
+                    localStorage.setItem('restaurants', PrairieView.toString());
+                }
+				var restaurantList = localStorage.getItem('restaurants');
+		        var chosenEl = document.getElementById('chosen');
+			    var rollEl = document.getElementById('roll');
+				
+				if(restaurantList !== null) {
+					restaurantList = restaurantList.split(',');
+	                function choseitnow() {
+		                var x = Math.floor((Math.random() * restaurantList.length));
+	                    chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
+					}
+	                rollEl.onclick = choseitnow;
+	            } else {
                     localStorage.setItem('restaurants', restaurantDefault.toString());
                     restaurantList = localStorage.getItem('restaurants');
                     restaurantList = restaurantList.split(',');
@@ -89,7 +99,9 @@
                         chosenEl.innerHTML = '<a href="http://maps.google.com/?q=' + restaurantList[x] + '">' + restaurantList[x] + '</a>';
                     }
                     rollEl.onclick = choseitnow;
-            }
+	            }
+	        });
+
         })();
     </script>
 
